@@ -1,0 +1,37 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "SKAid Component Map",
+    "subtitle": "Sovereign AI agent army: deployed on the owner's own infrastructure, never a rented API",
+    "output": "skaid.architecture.html",
+    "quality_profile": "showcase"
+  },
+  "components": [
+    { "id": "owner", "type": "external", "label": "Business Owner", "sublabel": "deploys and directs agents", "pos": [40, 300], "size": [160, 64] },
+    { "id": "agents", "type": "backend", "label": "SKAid Agent Army", "sublabel": "autonomous, industry-specific, 24/7", "pos": [320, 300], "size": [180, 64] },
+    { "id": "capstone", "type": "backend", "label": "skcapstone", "sublabel": "coordination framework", "pos": [620, 140], "size": [160, 64] },
+    { "id": "security", "type": "security", "label": "sksecurity", "sublabel": "identity and auth layer", "pos": [620, 300], "size": [160, 64] },
+    { "id": "memory", "type": "database", "label": "skmemory", "sublabel": "persistent data layer", "pos": [620, 460], "size": [160, 64] },
+    { "id": "infra", "type": "cloud", "label": "Owner's Infrastructure", "sublabel": "sovereign stack, self-hosted", "pos": [320, 460], "size": [180, 64] },
+    { "id": "comms", "type": "messagebus", "label": "Multi-Channel Comms", "sublabel": "chat, voice, email", "pos": [900, 300], "size": [170, 64] },
+    { "id": "customers", "type": "external", "label": "Customers / Business Channels", "sublabel": "service, content, monitoring, analysis", "pos": [1140, 300], "size": [190, 64] }
+  ],
+  "boundaries": [
+    { "kind": "region", "label": "Owner's sovereign stack (self-hosted, zero data harvesting)", "wraps": ["agents", "capstone", "security", "memory", "infra", "comms"] },
+    { "kind": "security-group", "label": "Identity-gated", "wraps": ["agents", "security"] }
+  ],
+  "connections": [
+    { "id": "owner-deploys", "from": "owner", "to": "agents", "label": "deploys and directs", "variant": "default" },
+    { "id": "agents-coordinate", "from": "agents", "to": "capstone", "label": "coordinates via", "variant": "default" },
+    { "id": "agents-auth", "from": "agents", "to": "security", "label": "authenticates through", "variant": "security" },
+    { "id": "agents-state", "from": "agents", "to": "memory", "label": "reads and writes state", "variant": "default" },
+    { "id": "agents-run-on", "from": "agents", "to": "infra", "label": "runs on", "variant": "dashed" },
+    { "id": "agents-comms", "from": "agents", "to": "comms", "label": "sends and receives through", "variant": "default" },
+    { "id": "comms-customers", "from": "comms", "to": "customers", "label": "service, content, monitoring, analysis", "variant": "emphasis" }
+  ],
+  "cards": [
+    { "dot": "emerald", "title": "Sovereign by design", "items": ["Every layer runs on infrastructure the owner controls, not a rented API or a third-party cloud", "Zero data harvesting is a stated claim on SKAid's own site, carried through to this map"] },
+    { "dot": "cyan", "title": "What SKAid actually does", "items": ["Deploys autonomous, industry-specific agents that run 24/7", "Reaches customers through multiple channels for service, content creation, security monitoring, and financial analysis"] }
+  ]
+}
